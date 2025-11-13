@@ -85,11 +85,33 @@ src/components/
 
 ### API Integration
 
-OpenAI integration will be in `src/lib/`:
-- `openai.ts` - OpenAI client configuration
+**Vercel AI SDK** is used for all AI operations (`src/lib/`):
+- `openai.ts` - OpenAI provider from @ai-sdk/openai
 - `prompts.ts` - Prompt templates for quiz/flashcard/explanation generation
 
-**Pattern**: Use GPT-4o-mini for cost efficiency. All API routes return structured JSON.
+**Pattern**:
+```typescript
+import { generateObject } from 'ai';
+import { defaultModel } from '@/lib/openai';
+import { quizGenerateSchema } from '@/types/quiz';
+
+const result = await generateObject({
+  model: defaultModel, // gpt-4o-mini for cost efficiency
+  schema: quizGenerateSchema, // Zod schema for validation
+  system: 'System prompt here',
+  prompt: 'User prompt here',
+  temperature: 0.7,
+  maxRetries: 3, // Built-in retry logic
+});
+```
+
+**Key Benefits**:
+- Type-safe structured outputs with Zod validation
+- Built-in retry logic with exponential backoff
+- Streaming support for real-time responses (used in Explainer)
+- Better error handling and debugging
+
+All API routes return structured JSON. Use `generateObject()` for structured data and `streamText()` for streaming responses.
 
 ## Key Files & Their Purpose
 
@@ -174,20 +196,46 @@ All study data is stored in localStorage:
 
 **Pattern**: Implement cleanup logic to remove data older than 30 days.
 
-### OpenAI API Calls
+### AI API Calls with Vercel AI SDK
 
-**Pattern**:
+**For Structured Outputs** (Quiz, Flashcards):
 ```typescript
-const response = await openai.chat.completions.create({
-  model: "gpt-4o-mini",  // Cost-effective choice
-  temperature: 0.7,
-  response_format: { type: "json_object" },  // For structured outputs
-  max_tokens: 2000,
-  messages: [{ role: "user", content: prompt }]
+import { generateObject } from 'ai';
+import { defaultModel } from '@/lib/openai';
+import { z } from 'zod';
+
+const schema = z.object({
+  questions: z.array(z.object({
+    question: z.string(),
+    answer: z.string(),
+  })),
 });
+
+const result = await generateObject({
+  model: defaultModel,
+  schema,
+  prompt: 'Generate 10 quiz questions about React',
+  temperature: 0.7,
+  maxRetries: 3, // Automatic retry with exponential backoff
+});
+// result.object is fully typed based on schema
 ```
 
-Always handle errors and implement retry logic for failed requests.
+**For Streaming Responses** (Explainer):
+```typescript
+import { streamText } from 'ai';
+import { defaultModel } from '@/lib/openai';
+
+const result = await streamText({
+  model: defaultModel,
+  prompt: 'Explain quantum computing in simple terms',
+  temperature: 0.7,
+});
+
+return result.toDataStreamResponse(); // Returns streaming response
+```
+
+Error handling is built into the SDK with automatic retries. Schema validation happens automatically with Zod.
 
 ## Testing Strategy
 
