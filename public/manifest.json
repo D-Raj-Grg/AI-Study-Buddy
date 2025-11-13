@@ -1,0 +1,25 @@
+{
+  "name": "Study Buddy - AI-Powered Study Companion",
+  "short_name": "Study Buddy",
+  "description": "Transform any topic into interactive quizzes, flashcards, and crystal-clear explanations. Study smarter with AI-powered learning tools.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0EA5E9",
+  "theme_color": "#0EA5E9",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["education", "productivity"],
+  "screenshots": []
+}
