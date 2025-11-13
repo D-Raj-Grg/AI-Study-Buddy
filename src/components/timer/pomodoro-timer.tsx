@@ -137,19 +137,19 @@ export function PomodoroTimer() {
 
   return (
     <>
-      <Card className="p-8 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-slate-200 dark:border-slate-800">
+      <Card className="p-6 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-slate-200 dark:border-slate-800">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${getModeColor(mode)} p-2.5 shadow-lg`}>
+            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${getModeColor(mode)} p-2 shadow-lg`}>
               <Timer className="w-full h-full text-white" />
             </div>
             <div>
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-                Pomodoro Timer
+              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
+                Focus Timer
               </h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
-                {todaySessionsCount} sessions today · {totalStudyTimeMinutes}m studied
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                {todaySessionsCount} sessions · {totalStudyTimeMinutes}m today
               </p>
             </div>
           </div>
@@ -178,7 +178,7 @@ export function PomodoroTimer() {
         </div>
 
         {/* Mode Selector */}
-        <div className="flex gap-2 mb-8">
+        <div className="flex gap-2 mb-6">
           {(['pomodoro', 'shortBreak', 'longBreak'] as TimerMode[]).map((m) => (
             <Button
               key={m}
@@ -194,9 +194,9 @@ export function PomodoroTimer() {
         </div>
 
         {/* Timer Display */}
-        <div className="relative mb-8">
+        <div className="relative mb-6 mx-auto max-w-[280px]">
           {/* Progress Ring */}
-          <svg className="w-full h-full" viewBox="0 0 200 200">
+          <svg className="w-full h-auto" viewBox="0 0 200 200">
             {/* Background circle */}
             <circle
               cx="100"
@@ -238,41 +238,41 @@ export function PomodoroTimer() {
                 key={timeRemaining}
                 initial={{ scale: 1.1, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="text-6xl md:text-7xl font-bold text-slate-900 dark:text-slate-100 tabular-nums"
+                className="text-5xl font-bold text-slate-900 dark:text-slate-100 tabular-nums"
               >
                 {formatTime(timeRemaining)}
               </motion.div>
-              <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
-                {status === 'running' ? 'In Progress' : status === 'paused' ? 'Paused' : 'Ready to Start'}
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-2">
+                {status === 'running' ? 'In Progress' : status === 'paused' ? 'Paused' : 'Ready'}
               </p>
             </div>
           </div>
         </div>
 
         {/* Controls */}
-        <div className="flex items-center justify-center gap-3">
+        <div className="flex items-center justify-center gap-2">
           <Button
             variant="outline"
-            size="lg"
+            size="default"
             onClick={resetTimer}
             disabled={status === 'idle' && timeRemaining === totalTime}
           >
-            <RotateCcw className="w-5 h-5" />
+            <RotateCcw className="w-4 h-4" />
           </Button>
 
           <Button
-            size="lg"
+            size="default"
             onClick={status === 'running' ? pauseTimer : startTimer}
-            className={`w-32 bg-gradient-to-r ${getModeColor(mode)} hover:opacity-90 text-white shadow-lg`}
+            className={`w-28 bg-gradient-to-r ${getModeColor(mode)} hover:opacity-90 text-white shadow-lg`}
           >
             {status === 'running' ? (
               <>
-                <Pause className="w-5 h-5 mr-2" />
+                <Pause className="w-4 h-4 mr-2" />
                 Pause
               </>
             ) : (
               <>
-                <Play className="w-5 h-5 mr-2" />
+                <Play className="w-4 h-4 mr-2" />
                 Start
               </>
             )}
@@ -280,17 +280,17 @@ export function PomodoroTimer() {
 
           <Button
             variant="outline"
-            size="lg"
+            size="default"
             onClick={skipTimer}
           >
-            <SkipForward className="w-5 h-5" />
+            <SkipForward className="w-4 h-4" />
           </Button>
         </div>
 
         {/* Current Pomodoro Count */}
         {mode === 'pomodoro' && (
-          <div className="mt-6 text-center">
-            <p className="text-sm text-slate-600 dark:text-slate-400">
+          <div className="mt-4 text-center">
+            <p className="text-xs text-slate-600 dark:text-slate-400">
               Session #{currentPomodoro + 1} · Next break in{' '}
               <span className="font-semibold">
                 {settings.longBreakInterval - (currentPomodoro % settings.longBreakInterval)}
