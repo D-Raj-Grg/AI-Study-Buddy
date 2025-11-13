@@ -1,7 +1,7 @@
 # Study Buddy - Task Tracking
 
 **Last Updated**: November 13, 2025
-**Overall Progress**: Phase 3 In Progress (66% of MVP)
+**Overall Progress**: Phase 3 In Progress (73% of MVP)
 
 ---
 
@@ -11,9 +11,9 @@
 |-------|--------|----------|-------------|
 | Phase 1: Foundation | ✅ Complete | 100% (15/15) | Nov 13 ✓ |
 | Phase 2: Quiz Generator | ✅ Complete | 90% (27/30) | Nov 20 |
-| Phase 3: Flashcards & Explainer | 🔄 In Progress | 68% (17/25) | Nov 27 |
+| Phase 3: Flashcards & Explainer | 🔄 In Progress | 84% (21/25) | Nov 27 |
 | Phase 4: Dashboard & Launch | ⏳ Planned | 0% (0/20) | Dec 4 |
-| **TOTAL MVP** | **66%** | **59/90 tasks** | **Dec 4** |
+| **TOTAL MVP** | **70%** | **63/90 tasks** | **Dec 4** |
 
 ---
 
@@ -501,29 +501,34 @@
   - [x] Auto-advance to next card
   - **Acceptance**: Easy status marking
 
-### 3.4 Flashcard Study Modes (Priority: P1)
+### 3.4 Flashcard Study Modes (Priority: P1) ✅
 **Owner**: Frontend Dev | **Est**: 6 hours | **Day**: 5
 
-- [ ] **Task 3.4.1**: Implement study mode
-  - [ ] Sequential card review
-  - [ ] Show both sides
-  - [ ] Self-paced
+- [x] **Task 3.4.1**: Implement study mode
+  - [x] Sequential card review
+  - [x] Show both sides
+  - [x] Self-paced
+  - **Acceptance**: Study mode works ✅
 
-- [ ] **Task 3.4.2**: Implement shuffle mode
-  - [ ] Random card order
-  - [ ] Shuffle algorithm
-  - [ ] Track shuffled state
+- [x] **Task 3.4.2**: Implement shuffle mode
+  - [x] Random card order via setStudyMode('shuffle')
+  - [x] Shuffle algorithm in Zustand store
+  - [x] Automatic shuffling when mode selected
+  - **Acceptance**: Shuffle mode works ✅
 
-- [ ] **Task 3.4.3**: Implement quiz mode
-  - [ ] Show only front first
-  - [ ] Test without seeing answer
-  - [ ] Reveal after guess
+- [x] **Task 3.4.3**: Implement quiz mode
+  - [x] Show only front first
+  - [x] Test without seeing answer
+  - [x] Reveal after clicking "Reveal answer"
+  - [x] Mode-specific hint text
+  - **Acceptance**: Quiz mode works ✅
 
-- [ ] **Task 3.4.4**: Add mode selector
-  - [ ] Tab navigation for modes
-  - [ ] Mode descriptions
-  - [ ] Remember last mode
-  - **Acceptance**: All modes functional
+- [x] **Task 3.4.4**: Add mode selector
+  - [x] Tab navigation for 3 modes (Study/Shuffle/Quiz)
+  - [x] Mode descriptions and icons
+  - [x] Persisted in Zustand store
+  - [x] Visual active state
+  - **Acceptance**: All modes functional ✅
 
 ### 3.5 Progress Tracking (Priority: P1) ✅
 **Owner**: Frontend Dev | **Est**: 4 hours | **Day**: 5-6
@@ -938,13 +943,13 @@
 |----------|-------|------|-----------|------------|
 | **Setup & Foundation** | 15 | 15 | 0 | 100% ✅ |
 | **Quiz Generator** | 30 | 27 | 3 | 90% 🔥 |
-| **Flashcards** | 15 | 10 | 5 | 67% 🚀 |
+| **Flashcards** | 15 | 14 | 1 | 93% 🎉 |
 | **Explainer** | 10 | 7 | 3 | 70% 🌟 |
 | **Dashboard** | 10 | 0 | 10 | 0% |
 | **Timer** | 7 | 0 | 7 | 0% |
 | **Polish** | 6 | 0 | 6 | 0% |
 | **Launch Prep** | 7 | 0 | 7 | 0% |
-| **TOTAL** | **100** | **59** | **41** | **59%** |
+| **TOTAL** | **100** | **63** | **37** | **63%** |
 
 ### Time Tracking
 
@@ -952,9 +957,9 @@
 |-------|-----------|--------|-----------|
 | Phase 1 | 40h | 40h | 0h |
 | Phase 2 | 56h | 50h | 6h |
-| Phase 3 | 48h | 34h | 14h |
+| Phase 3 | 48h | 40h | 8h |
 | Phase 4 | 48h | 0h | 48h |
-| **Total** | **192h** | **124h** | **68h** |
+| **Total** | **192h** | **130h** | **62h** |
 
 ---
 
@@ -1028,6 +1033,20 @@
   - Loading states and error handling
   - Homepage feature card links updated
   - Remaining: Follow-up questions, bookmarking, related topics
+
+- 🎉 Nov 13: Phase 3 Flashcard Study Modes Implementation (93% Complete)
+  - Added studyMode state to Zustand flashcard store
+  - Implemented 3 study modes: Study, Shuffle, Quiz
+  - Study Mode: Sequential review with self-paced flipping
+  - Shuffle Mode: Automatic card shuffling on mode selection
+  - Quiz Mode: Front-only display, requires user to reveal answer
+  - Mode selector with tab navigation and icons
+  - Mode descriptions shown below selector
+  - Persisted mode preference in Zustand store
+  - Mode-specific hint text ("Click to flip" vs "Click to reveal answer")
+  - Removed standalone shuffle button (integrated into mode selector)
+  - Build passes, lint warnings fixed
+  - Remaining: Mobile swipe gestures (Task 3.3.4)
 
 ### Upcoming Decisions
 - Choose analytics platform (Vercel Analytics vs Mixpanel)

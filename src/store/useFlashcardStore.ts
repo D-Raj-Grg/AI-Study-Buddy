@@ -1,13 +1,14 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { nanoid } from 'nanoid';
-import { Flashcard, FlashcardSet, CardStatus } from '@/types/flashcard';
+import { Flashcard, FlashcardSet, CardStatus, StudyMode } from '@/types/flashcard';
 
 interface FlashcardStore {
   // State
   currentSet: FlashcardSet | null;
   flashcardSets: FlashcardSet[];
   currentCardIndex: number;
+  studyMode: StudyMode;
 
   // Actions
   setCurrentSet: (data: { topic: string; cards: Omit<Flashcard, 'id' | 'status' | 'reviewCount'>[] }) => void;
@@ -15,6 +16,7 @@ interface FlashcardStore {
   nextCard: () => void;
   previousCard: () => void;
   goToCard: (index: number) => void;
+  setStudyMode: (mode: StudyMode) => void;
   shuffleCards: () => void;
   resetCurrentSet: () => void;
   completeSet: () => void;
@@ -28,6 +30,7 @@ export const useFlashcardStore = create<FlashcardStore>()(
       currentSet: null,
       flashcardSets: [],
       currentCardIndex: 0,
+      studyMode: 'study' as StudyMode,
 
       setCurrentSet: (data) => {
         const cards: Flashcard[] = data.cards.map((card) => ({
@@ -99,6 +102,15 @@ export const useFlashcardStore = create<FlashcardStore>()(
 
         if (index >= 0 && index < currentSet.cards.length) {
           set({ currentCardIndex: index });
+        }
+      },
+
+      setStudyMode: (mode) => {
+        set({ studyMode: mode });
+
+        // If switching to shuffle mode, shuffle the cards
+        if (mode === 'shuffle') {
+          get().shuffleCards();
         }
       },
 

@@ -3,21 +3,22 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, RotateCw, Home, X, Check, MinusCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Home, X, Check, MinusCircle, BookOpen, Shuffle as ShuffleIcon, Brain } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { useFlashcardStore } from '@/store/useFlashcardStore';
-import { CardStatus } from '@/types/flashcard';
+import { CardStatus, StudyMode } from '@/types/flashcard';
 
 export default function FlashcardStudyPage() {
   const router = useRouter();
   const currentSet = useFlashcardStore((state) => state.currentSet);
   const currentCardIndex = useFlashcardStore((state) => state.currentCardIndex);
+  const studyMode = useFlashcardStore((state) => state.studyMode);
   const updateCardStatus = useFlashcardStore((state) => state.updateCardStatus);
   const nextCard = useFlashcardStore((state) => state.nextCard);
   const previousCard = useFlashcardStore((state) => state.previousCard);
-  const shuffleCards = useFlashcardStore((state) => state.shuffleCards);
+  const setStudyMode = useFlashcardStore((state) => state.setStudyMode);
   const completeSet = useFlashcardStore((state) => state.completeSet);
 
   const [isFlipped, setIsFlipped] = useState(false);
@@ -67,8 +68,10 @@ export default function FlashcardStudyPage() {
     }, 300);
   };
 
-  const handleShuffle = () => {
-    shuffleCards();
+  const handleModeChange = (mode: StudyMode) => {
+    setStudyMode(mode);
+    setIsFlipped(false);
+    setShowControls(false);
   };
 
   const handleFinish = () => {
@@ -76,10 +79,47 @@ export default function FlashcardStudyPage() {
     router.push('/flashcards/results');
   };
 
+  // In quiz mode, show controls only after flipping
+  // In study/shuffle mode, show controls after first flip
+  const shouldShowControls = studyMode === 'quiz' ? isFlipped && showControls : showControls;
+
+  const modes = [
+    { id: 'study' as StudyMode, label: 'Study', icon: BookOpen, description: 'Review all cards sequentially' },
+    { id: 'shuffle' as StudyMode, label: 'Shuffle', icon: ShuffleIcon, description: 'Random order review' },
+    { id: 'quiz' as StudyMode, label: 'Quiz', icon: Brain, description: 'Test yourself without hints' },
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50 dark:from-slate-950 dark:via-slate-900 dark:to-purple-950">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
+          {/* Mode Selector */}
+          <div className="mb-8">
+            <div className="flex gap-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
+              {modes.map((mode) => {
+                const Icon = mode.icon;
+                const isActive = studyMode === mode.id;
+                return (
+                  <button
+                    key={mode.id}
+                    onClick={() => handleModeChange(mode.id)}
+                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-md transition-all ${
+                      isActive
+                        ? 'bg-white dark:bg-slate-700 shadow-sm text-purple-600 dark:text-purple-400 font-semibold'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                    <span>{mode.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+            <p className="text-sm text-center text-slate-500 dark:text-slate-400 mt-2">
+              {modes.find(m => m.id === studyMode)?.description}
+            </p>
+          </div>
+
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div>
@@ -90,24 +130,14 @@ export default function FlashcardStudyPage() {
                 Card {currentCardIndex + 1} of {currentSet.cards.length} · {reviewedCount} reviewed
               </p>
             </div>
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleShuffle}
-              >
-                <RotateCw className="w-4 h-4 mr-2" />
-                Shuffle
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleFinish}
-              >
-                <Home className="w-4 h-4 mr-2" />
-                Finish
-              </Button>
-            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleFinish}
+            >
+              <Home className="w-4 h-4 mr-2" />
+              Finish
+            </Button>
           </div>
 
           {/* Progress Bar */}
@@ -141,7 +171,7 @@ export default function FlashcardStudyPage() {
                       {currentCard.front}
                     </p>
                     <p className="text-sm text-slate-500 dark:text-slate-400 mt-6">
-                      Click to flip
+                      {studyMode === 'quiz' ? 'Click to reveal answer' : 'Click to flip'}
                     </p>
                   </div>
                 </Card>
@@ -173,7 +203,7 @@ export default function FlashcardStudyPage() {
 
           {/* Status Buttons (shown after flipping) */}
           <AnimatePresence>
-            {showControls && (
+            {shouldShowControls && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
