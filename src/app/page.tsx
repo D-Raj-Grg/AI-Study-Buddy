@@ -116,20 +116,24 @@ export default function Home() {
               transition={{ delay: 0.5 }}
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             >
-              <Button
-                size="lg"
-                className="text-lg px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg shadow-blue-500/50 dark:shadow-blue-900/50 group"
-              >
-                Start Learning Free
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="text-lg px-8 py-6 border-2"
-              >
-                Watch Demo
-              </Button>
+              <Link href="/dashboard">
+                <Button
+                  size="lg"
+                  className="text-lg px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg shadow-blue-500/50 dark:shadow-blue-900/50 group"
+                >
+                  Start Learning Free
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <Link href="/dashboard">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="text-lg px-8 py-6 border-2"
+                >
+                  View Dashboard
+                </Button>
+              </Link>
             </motion.div>
           </motion.div>
         </section>
