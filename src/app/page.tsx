@@ -138,7 +138,7 @@ export default function Home() {
             transition={{ delay: 0.6 }}
             className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
           >
-            {features.map((feature, index) => {
+            {features.map((feature) => {
               const Icon = feature.icon
               return (
                 <motion.div
