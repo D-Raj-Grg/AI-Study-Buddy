@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { motion } from "framer-motion"
 import { Brain, BookOpen, Lightbulb, Sparkles, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -15,6 +16,7 @@ export default function Home() {
       description: "Generate custom quizzes from any topic with multiple choice, true/false, and short answer questions.",
       gradient: "from-blue-500 to-cyan-500",
       delay: 0.1,
+      href: "/quiz/new",
     },
     {
       icon: BookOpen,
@@ -22,13 +24,15 @@ export default function Home() {
       description: "Auto-generate interactive flashcards and track your progress with intelligent spaced repetition.",
       gradient: "from-purple-500 to-pink-500",
       delay: 0.2,
+      href: "/flashcards/new",
     },
     {
       icon: Lightbulb,
       title: "Concept Explainer",
       description: "Get clear explanations for complex topics with examples, analogies, and visual breakdowns.",
-      gradient: "from-orange-500 to-red-500",
+      gradient: "from-emerald-500 to-teal-500",
       delay: 0.3,
+      href: "/explain",
     },
   ]
 
@@ -149,28 +153,30 @@ export default function Home() {
                   whileHover={{ scale: 1.02, y: -5 }}
                   className="group"
                 >
-                  <Card className="p-8 h-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-slate-200 dark:border-slate-800 shadow-xl hover:shadow-2xl transition-all duration-300">
-                    {/* Icon */}
-                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.gradient} p-3 mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                      <Icon className="w-full h-full text-white" />
-                    </div>
+                  <Link href={feature.href}>
+                    <Card className="p-8 h-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-slate-200 dark:border-slate-800 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer">
+                      {/* Icon */}
+                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.gradient} p-3 mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                        <Icon className="w-full h-full text-white" />
+                      </div>
 
-                    {/* Title */}
-                    <h3 className="text-2xl font-bold mb-4 text-slate-900 dark:text-slate-100">
-                      {feature.title}
-                    </h3>
+                      {/* Title */}
+                      <h3 className="text-2xl font-bold mb-4 text-slate-900 dark:text-slate-100">
+                        {feature.title}
+                      </h3>
 
-                    {/* Description */}
-                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                      {feature.description}
-                    </p>
+                      {/* Description */}
+                      <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        {feature.description}
+                      </p>
 
-                    {/* Hover indicator */}
-                    <div className={`mt-6 flex items-center text-sm font-medium bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent opacity-0 group-hover:opacity-100 transition-opacity`}>
-                      Learn more
-                      <ArrowRight className="ml-1 w-4 h-4 text-slate-400 dark:text-slate-500" />
-                    </div>
-                  </Card>
+                      {/* Hover indicator */}
+                      <div className={`mt-6 flex items-center text-sm font-medium bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent opacity-0 group-hover:opacity-100 transition-opacity`}>
+                        Get started
+                        <ArrowRight className="ml-1 w-4 h-4 text-slate-400 dark:text-slate-500" />
+                      </div>
+                    </Card>
+                  </Link>
                 </motion.div>
               )
             })}

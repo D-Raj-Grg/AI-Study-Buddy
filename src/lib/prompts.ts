@@ -104,31 +104,64 @@ export function generateFlashcardsPrompt(topic: string, cardCount: number): stri
 Create ${cardCount} high-quality flashcards that cover the most important concepts, terms, and ideas related to this topic.
 
 IMPORTANT INSTRUCTIONS:
-1. Front of card: A term, concept, or question (concise, 1-10 words)
-2. Back of card: Definition, explanation, or answer (clear, 1-3 sentences)
+1. Front of card: A term, concept, or question (concise, 3-50 words)
+2. Back of card: Definition, explanation, or answer (clear, 10-200 words)
 3. Focus on key vocabulary, important concepts, and fundamental ideas
 4. Make cards that are actually useful for studying and memorization
 5. Organize cards logically (foundational concepts first, then build complexity)
 6. Ensure variety - don't repeat the same type of information
 7. Each card should be atomic - test one concept only
+8. Use clear, simple language that aids memorization
 
 Return ONLY valid JSON in this exact format:
 {
-  "flashcards": [
+  "cards": [
     {
-      "id": "f1",
       "front": "Photosynthesis",
-      "back": "The process by which plants convert light energy into chemical energy, using sunlight, water, and CO2 to produce glucose and oxygen.",
-      "category": "Biology Processes"
+      "back": "The process by which plants convert light energy into chemical energy, using sunlight, water, and CO2 to produce glucose and oxygen."
     },
     {
-      "id": "f2",
       "front": "What are the products of photosynthesis?",
-      "back": "Glucose (sugar) and oxygen are the main products of photosynthesis.",
-      "category": "Biology Processes"
+      "back": "Glucose (sugar) and oxygen are the main products of photosynthesis. This process also releases oxygen into the atmosphere as a byproduct."
     }
   ]
 }
 
 Generate exactly ${cardCount} flashcards about "${topic}".`;
+}
+
+export function generateExplainerPrompt(
+  topic: string,
+  complexity: 'beginner' | 'intermediate' | 'advanced',
+  context?: string
+): string {
+  const complexityInstructions = {
+    beginner: 'Use simple, accessible language. Avoid jargon. Explain concepts from first principles. Use everyday analogies.',
+    intermediate: 'Assume some foundational knowledge. Use proper terminology but explain technical terms. Balance depth with clarity.',
+    advanced: 'Provide in-depth analysis. Use technical terminology. Explore nuances, edge cases, and complex relationships.',
+  };
+
+  const contextSection = context ? `\n\nAdditional Context: ${context}` : '';
+
+  return `You are an expert educator explaining concepts clearly and comprehensively.
+
+Topic: "${topic}"
+Complexity Level: ${complexity}${contextSection}
+
+${complexityInstructions[complexity]}
+
+Structure your explanation as follows:
+1. **Brief Overview**: Start with a clear 1-2 sentence summary
+2. **Core Explanation**: Provide the main explanation with key concepts
+3. **Examples**: Include relevant examples to illustrate the concept
+4. **Key Takeaways**: Summarize 3-5 important points to remember
+5. **Common Misconceptions**: Address 1-2 common misunderstandings (if applicable)
+
+Make your explanation:
+- Clear and well-organized
+- Educational and engaging
+- Accurate and comprehensive
+- Appropriate for the ${complexity} level
+
+Provide the explanation in a natural, flowing format with proper formatting (bold for headings, bullet points for lists).`;
 }
