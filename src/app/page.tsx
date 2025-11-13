@@ -5,6 +5,7 @@ import { Brain, BookOpen, Lightbulb, Sparkles, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ModeToggle } from "@/components/mode-toggle"
+import { Logo } from "@/components/logo"
 
 export default function Home() {
   const features = [
@@ -37,15 +38,31 @@ export default function Home() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100 via-transparent to-purple-100 dark:from-blue-950 dark:to-purple-950 opacity-50" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-indigo-100 via-transparent to-cyan-100 dark:from-indigo-950 dark:to-cyan-950 opacity-50" />
 
-      {/* Theme toggle in top right */}
-      <div className="absolute top-6 right-6 z-50">
-        <ModeToggle />
-      </div>
+      {/* Navigation Header */}
+      <nav className="relative z-50 container mx-auto px-4 py-6">
+        <div className="flex items-center justify-between">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Logo size={36} />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <ModeToggle />
+          </motion.div>
+        </div>
+      </nav>
 
       {/* Main content */}
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="container mx-auto px-4 pt-20 pb-12 md:pt-32 md:pb-20">
+        <section className="container mx-auto px-4 pt-8 pb-12 md:pt-16 md:pb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

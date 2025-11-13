@@ -1,0 +1,60 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient Definitions -->
+  <defs>
+    <linearGradient id="brainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0EA5E9;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#6366F1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="sparkleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F59E0B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EF4444;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="95" fill="url(#brainGradient)" opacity="0.1"/>
+
+  <!-- Brain Icon -->
+  <g transform="translate(100, 100)">
+    <!-- Left hemisphere -->
+    <path d="M-25,-30 Q-45,-30 -45,-10 Q-45,10 -35,20 Q-25,30 -15,25 Q-10,22 -10,15 L-10,-15 Q-10,-25 -15,-28 Q-20,-30 -25,-30 Z"
+          fill="url(#brainGradient)"
+          opacity="0.9"/>
+
+    <!-- Right hemisphere -->
+    <path d="M25,-30 Q45,-30 45,-10 Q45,10 35,20 Q25,30 15,25 Q10,22 10,15 L10,-15 Q10,-25 15,-28 Q20,-30 25,-30 Z"
+          fill="url(#brainGradient)"/>
+
+    <!-- Brain folds/details - Left -->
+    <path d="M-35,-15 Q-30,-10 -35,-5" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+    <path d="M-35,0 Q-28,5 -35,10" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+    <path d="M-25,-20 Q-20,-15 -25,-10" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+
+    <!-- Brain folds/details - Right -->
+    <path d="M35,-15 Q30,-10 35,-5" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+    <path d="M35,0 Q28,5 35,10" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+    <path d="M25,-20 Q20,-15 25,-10" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+
+    <!-- Center connection -->
+    <ellipse cx="0" cy="-5" rx="8" ry="15" fill="url(#brainGradient)" opacity="0.7"/>
+  </g>
+
+  <!-- Sparkle/Star effects around the brain -->
+  <circle cx="140" cy="60" r="3" fill="url(#sparkleGradient)">
+    <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="60" cy="70" r="2.5" fill="url(#sparkleGradient)">
+    <animate attributeName="opacity" values="0.3;1;0.3" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="145" cy="130" r="2" fill="url(#sparkleGradient)">
+    <animate attributeName="opacity" values="1;0.4;1" dur="1.8s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Small decorative stars -->
+  <path d="M150,90 L152,95 L157,95 L153,98 L155,103 L150,100 L145,103 L147,98 L143,95 L148,95 Z"
+        fill="url(#sparkleGradient)"
+        opacity="0.7">
+    <animateTransform attributeName="transform" type="rotate" from="0 150 96" to="360 150 96" dur="4s" repeatCount="indefinite"/>
+  </path>
+</svg>
