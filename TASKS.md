@@ -1,7 +1,7 @@
 # Study Buddy - Task Tracking
 
 **Last Updated**: November 13, 2025
-**Overall Progress**: Phase 3 In Progress (73% of MVP)
+**Overall Progress**: Phase 3 In Progress (71% of MVP)
 
 ---
 
@@ -11,9 +11,9 @@
 |-------|--------|----------|-------------|
 | Phase 1: Foundation | ✅ Complete | 100% (15/15) | Nov 13 ✓ |
 | Phase 2: Quiz Generator | ✅ Complete | 90% (27/30) | Nov 20 |
-| Phase 3: Flashcards & Explainer | 🔄 In Progress | 84% (21/25) | Nov 27 |
+| Phase 3: Flashcards & Explainer | 🔄 In Progress | 88% (22/25) | Nov 27 |
 | Phase 4: Dashboard & Launch | ⏳ Planned | 0% (0/20) | Dec 4 |
-| **TOTAL MVP** | **70%** | **63/90 tasks** | **Dec 4** |
+| **TOTAL MVP** | **71%** | **64/90 tasks** | **Dec 4** |
 
 ---
 
@@ -471,13 +471,16 @@
   - [x] Mobile tap to flip
   - **Acceptance**: Buttery smooth flip
 
-- [ ] **Task 3.3.4**: Add swipe gestures (mobile)
-  - [ ] Swipe left = Don't Know
-  - [ ] Swipe right = Know
-  - [ ] Swipe up = Learning
-  - [ ] Visual feedback during swipe
-  - [ ] Snap back if not completed
-  - **Acceptance**: Intuitive mobile gestures
+- [x] **Task 3.3.4**: Add swipe gestures (mobile)
+  - [x] Swipe left = Don't Know
+  - [x] Swipe right = Know It
+  - [x] Swipe up = Still Learning
+  - [x] Visual feedback during swipe with icons and labels
+  - [x] Snap back animation if swipe not completed
+  - [x] Touch event handlers (touchStart, touchMove, touchEnd)
+  - [x] Swipe distance threshold (50px minimum)
+  - [x] Mobile hint text shown when card flipped
+  - **Acceptance**: Intuitive mobile gestures ✅
 
 - [x] **Task 3.3.5**: Add keyboard navigation
   - [x] Arrow keys to navigate
@@ -943,13 +946,13 @@
 |----------|-------|------|-----------|------------|
 | **Setup & Foundation** | 15 | 15 | 0 | 100% ✅ |
 | **Quiz Generator** | 30 | 27 | 3 | 90% 🔥 |
-| **Flashcards** | 15 | 14 | 1 | 93% 🎉 |
+| **Flashcards** | 15 | 15 | 0 | 100% ✅ |
 | **Explainer** | 10 | 7 | 3 | 70% 🌟 |
 | **Dashboard** | 10 | 0 | 10 | 0% |
 | **Timer** | 7 | 0 | 7 | 0% |
 | **Polish** | 6 | 0 | 6 | 0% |
 | **Launch Prep** | 7 | 0 | 7 | 0% |
-| **TOTAL** | **100** | **63** | **37** | **63%** |
+| **TOTAL** | **100** | **64** | **36** | **64%** |
 
 ### Time Tracking
 
@@ -1034,7 +1037,7 @@
   - Homepage feature card links updated
   - Remaining: Follow-up questions, bookmarking, related topics
 
-- 🎉 Nov 13: Phase 3 Flashcard Study Modes Implementation (93% Complete)
+- 🎉 Nov 13: Phase 3 Flashcard Study Modes Implementation (100% Complete)
   - Added studyMode state to Zustand flashcard store
   - Implemented 3 study modes: Study, Shuffle, Quiz
   - Study Mode: Sequential review with self-paced flipping
@@ -1046,7 +1049,18 @@
   - Mode-specific hint text ("Click to flip" vs "Click to reveal answer")
   - Removed standalone shuffle button (integrated into mode selector)
   - Build passes, lint warnings fixed
-  - Remaining: Mobile swipe gestures (Task 3.3.4)
+
+- ✅ Nov 13: Phase 3 Mobile Swipe Gestures Complete (Flashcards 100% ✅)
+  - Implemented native touch event handlers (touchStart, touchMove, touchEnd)
+  - Swipe left = Don't Know (red), right = Know It (green), up = Still Learning (yellow)
+  - 50px minimum swipe distance threshold for gesture detection
+  - Real-time visual feedback overlay during swipe with icons and labels
+  - AnimatePresence for smooth feedback animations
+  - Snap-back animation if swipe not completed
+  - Mobile hint text displayed when card is flipped (sm:hidden)
+  - Card follows finger during swipe with smooth motion
+  - Direction detection: horizontal vs vertical swipes
+  - All 15 flashcard tasks now complete (100%)
 
 ### Upcoming Decisions
 - Choose analytics platform (Vercel Analytics vs Mixpanel)
