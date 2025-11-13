@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Brain, BookOpen, Lightbulb, TrendingUp, Target, Calendar, Plus } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -11,9 +12,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useQuizStore } from '@/store/useQuizStore';
 import { useFlashcardStore } from '@/store/useFlashcardStore';
 import { useBookmarkStore } from '@/store/useBookmarkStore';
-import { PomodoroTimer } from '@/components/timer/pomodoro-timer';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+
+// Lazy load Pomodoro Timer for better initial page load
+const PomodoroTimer = dynamic(() => import('@/components/timer/pomodoro-timer').then(mod => ({ default: mod.PomodoroTimer })), {
+  ssr: false,
+  loading: () => <div className="h-32 animate-pulse bg-slate-200 dark:bg-slate-800 rounded-xl" />
+});
 
 export default function DashboardPage() {
   const router = useRouter();

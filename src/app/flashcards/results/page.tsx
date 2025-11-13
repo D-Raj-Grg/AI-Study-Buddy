@@ -4,11 +4,14 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Trophy, RotateCcw, Home, Check, X, MinusCircle } from 'lucide-react';
-import Confetti from 'react-confetti';
+import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { useFlashcardStore } from '@/store/useFlashcardStore';
+
+// Lazy load Confetti for better initial bundle size
+const Confetti = dynamic(() => import('react-confetti'), { ssr: false });
 
 export default function FlashcardResultsPage() {
   const router = useRouter();

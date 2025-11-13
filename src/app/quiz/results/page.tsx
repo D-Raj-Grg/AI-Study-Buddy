@@ -4,11 +4,14 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Trophy, RotateCcw, Home, ChevronDown, ChevronUp, Check, X } from 'lucide-react';
-import Confetti from 'react-confetti';
+import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { useQuizStore } from '@/store/useQuizStore';
+
+// Lazy load Confetti for better initial bundle size
+const Confetti = dynamic(() => import('react-confetti'), { ssr: false });
 
 export default function QuizResultsPage() {
   const router = useRouter();

@@ -57,7 +57,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 Oops! Something went wrong
               </h1>
               <p className="text-lg text-slate-600 dark:text-slate-400 mb-6">
-                We encountered an unexpected error. Don't worry, your data is safe.
+                We encountered an unexpected error. Don&apos;t worry, your data is safe.
               </p>
 
               {/* Error Details (in development) */}
